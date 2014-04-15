@@ -1,0 +1,99 @@
+body{
+    height:100%;
+    background-image:url('../img/squared_metal.png');
+    font-family: 'Palatino Linotype', Palatino, Palladio, 'URW Palladio L', 'Book Antiqua', Baskerville, 'Bookman Old Style', 'Bitstream Charter', 'Nimbus Roman No9 L', Garamond, 'Apple Garamond', 'ITC Garamond Narrow', 'New Century Schoolbook', 'Century Schoolbook', 'Century Schoolbook L', Georgia, serif;
+}
+#header {
+background: #fff;
+color: black;
+padding-left: 10%;
+min-height: 12%;
+-webkit-box-shadow: 0 0 15px #555;
+box-shadow: 0 0 15px #555;
+}
+#header span{
+  font-size:0.4em;
+  font-weight:normal;
+  padding-left:35px;
+}
+#header button:not(.nonheader){
+  font-weight:bold;
+  width:100px;
+  padding:7px 14px;
+}
+#header div{
+  float:right;
+  margin-top:-5px;
+  margin-right:16%;
+  margin-bottom: 5px;
+}
+#pagebody{
+position:absolute;
+margin-top:7%;
+height:85%;   
+}
+.black-input{
+  background-color: gray;
+  color:white;
+  font-weight: bold;
+}
+.black-input ::-webkit-input-placeholder { color:#f00; }
+.black-input ::-moz-placeholder { color:#f00; } /* firefox 19+ */
+.black-input :-ms-input-placeholder { color:#f00; } /* ie */
+.black-input input:-moz-placeholder { color:#f00; }
+
+#left_half,#right_half{
+    padding:5px;
+    float:left;
+    /*border-right:1px solid blue;*/
+    width:50%;
+    height:100%;
+}
+#left_half h4{
+    font-size:2em;
+    color:#090;
+    margin-left:1%;    
+}
+#left_half h4 subtext{
+    font-size:0.7em;
+}
+#left_half{
+  padding-left:2%;
+}
+#left_half p{
+    color:black;
+}
+.carousel-inner .item img{
+    /*max-height:100%;*/
+    height:525px;
+    /*max-height:525px;*/
+}
+.carousel-inner > .item{
+    -webkit-transition: 1s ease-in-out left;
+    -moz-transition: 1s ease-in-out left;
+    -o-transition: 1s ease-in-out left;
+    transition: 1s ease-in-out left;
+}
+.carousel-fade .carousel-inner .item {
+  opacity: 0;
+  -webkit-transition-property: opacity;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+}
+.carousel-fade .carousel-inner .active {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+}
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-control {
+  z-index: 2;
+}

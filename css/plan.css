@@ -1,0 +1,73 @@
+.sideoption{
+background: #eaeaea;
+margin-top: 5px;
+min-height: 40px;
+line-height: 40px;
+text-align: center;
+width: 46%;
+float:left;
+margin-right: 2px;
+font-size:100%;
+margin-left:1%;
+}
+.sideoption .mini{
+	/*height:0px;*/
+	display: none;
+}
+.sideoption li{
+	list-style: none;
+	text-align: left;
+	margin-top: 10px;
+	line-height: 20px;
+	font-size:16px;
+}
+.citytab{
+	font-weight: bold;
+	font-size:14px;
+	text-align: center;
+	min-width: 0px!important;
+	width: auto!important;
+	padding: 0 10px;
+	padding-left: 0;
+}
+.citytab.active{
+	font-weight: bolder;
+	font-size: 15px;
+	text-decoration: underline
+}
+.citytab:not(.active) {
+border: 1px solid;
+border-width: 0 1px 0 0;
+border-radius: 5px;
+}
+.panel .modal-body{
+	padding:5px 5px;
+}
+.panel ul{
+	padding:0 0;
+}
+.typelist{
+	list-style: none;
+	font-size: 1vw;
+	text-decoration:underline;
+	border: 1px solid #eee;
+	width:100%;
+	padding: 3px;
+	margin-top: 2px;
+	float: left;
+	clear: both;
+}
+.search{
+	font-size: 1vw;
+	text-decoration:underline;
+	border: 1px solid #eee;
+	width:100%;
+	padding: 3px;
+	margin-top: 2px;
+	float: left;
+	clear: both;
+	cursor: pointer;
+}
+.modal-dialog{
+	width:50%;
+}

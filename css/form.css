@@ -1,0 +1,184 @@
+form ul label.parent {
+font:18px/25px IstokWebRegular,Arial,sans-serif;
+}
+
+form ul li {
+clear:both;
+}
+
+form ul li div {
+font-weight:400;
+margin:3px 0;
+}
+
+form ul li div label {
+display:block;
+line-height:25px;
+margin:0 5px;
+}
+
+.asterisk {
+color:red;
+font-weight:400;
+}
+
+.left-aside {
+background-color:#e7e7ea;
+}
+
+.left-aside article {
+padding:15px;
+}
+
+.border-top {
+border-top:1px solid #E7E7E7;
+}
+
+.form-box {
+background:none repeat scroll 0 0 #FCFCFC;
+border:1px solid #CCC;
+border-radius:5px 5px 5px 5px;
+margin:10px 0;
+padding:10px;
+}
+
+span.error {
+letter-spacing:.03em;
+height:12px;
+line-height:12px;
+font-weight:400;
+color:#a10005;
+}
+
+select {
+height:auto;
+}
+
+.form-block {
+border:1px dashed #d9d9d9;
+padding:5px;
+}
+
+form h4 {
+color:#464646;
+font:bold 18px/46px OpenSansCondensedLight,Arial,sans-serif;
+margin:0;
+padding:11px 10px;
+}
+
+span.uiTokenarea {
+font-weight:700;
+padding:4px 0;
+}
+
+span.uiToken {
+padding:0 8px;
+}
+
+span.uiToken a.uiCloseButton {
+color:#000;
+font-size:15px;
+margin-left:5px;
+padding:4px 0;
+}
+
+.uiField.uiFPlaceAutocomplete>.uiContent {
+width:100%;
+}
+
+.uiField.uiFPlaceAutocomplete>.uiContent .uiTokenarea .uiToken {
+background-color:#ebe8e8;
+color:#666;
+display:inline-block;
+float:left;
+height:20px;
+line-height:20px;
+position:relative;
+border-radius:5px 5px 5px 5px;
+margin:1px;
+padding:2px 7px 2px 5px;
+}
+
+.uiField.uiFPlaceAutocomplete>.uiContent input,textarea,select,.uneditable-input {
+font-size:13px;
+line-height:20px;
+min-height:20px;
+padding:4px;
+}
+
+.uiField.uiFPlaceAutocomplete>.uiContent .uiTokenarea {
+float:left;
+}
+
+input[type="radio"],input[type="checkbox"] {
+float:left;
+width:15px;
+clear:left;
+border:0;
+}
+
+input[type="radio"]:checked+label {
+color:#009d99;
+font-weight:700;
+}
+
+input[type="radio"] {
+color:red;
+width:30px;
+}
+
+input[type=radio]+label {
+margin:2px 0 0 2px;
+}
+
+button.ui-datepicker-trigger {
+background:url(../img/calendar.png?c=aaaa) no-repeat scroll 0 0 #FBFBFC;
+color:#00AFAA;
+height:30px;
+width:32px;
+}
+
+input.hasDatepicker {
+background-color:#F9F9FB;
+border:1px solid #a6e4e2;
+border-radius:0 0 0 0;
+font-weight:700;
+width:80px;
+}
+
+.uiIcon.uiIReload {
+background:url(../img/reload.png?c=aaaa) no-repeat scroll center center transparent;
+display:block;
+height:20px;
+width:20px;
+margin-top:10px;
+}
+
+a#show_hide {
+background-image:url(../img/expand.gif?c=aaaa);
+background-position:right;
+background-repeat:no-repeat;
+padding-right:25px;
+display:block;
+width:200px;
+}
+
+#que_ans {
+position:absolute;
+z-index:4;
+font:Arial,sans-serif;
+background-color:#f6f6f9;
+border-radius:5px 5px 5px 5px;
+border:1px dotted #fff;
+box-shadow:0 1px 4px -1px rgba(0,0,0,0.1);
+padding:5px 20px;
+}
+
+#que_ans ul {
+list-style-position:outside;
+list-style-image:url(../img/bullets-dots.gif?c=aaaa);
+}
+
+div.need-help {
+margin-top:-35px;
+}

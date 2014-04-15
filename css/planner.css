@@ -1,0 +1,51 @@
+.navbar div{
+	margin-top:0!important;
+}
+#header{
+	min-height:6%;
+}
+#logo{
+	left: 2%;
+}
+.dayheaddiv{
+	height: 90%;
+	margin: 0.25% 5px;
+	width:22%;
+}
+.itinday {
+width: 22%;
+height: 100%;
+margin-left: 5px;
+}
+#itin_container{
+	height:85%;
+	overflow: auto;
+}
+#timediv{
+	width:7%;
+	height:100%;
+	float: left;
+	margin-top: 5.5%;
+}
+.time{
+	height: 10%;
+	font-size: initial;
+	text-align: right;
+}
+#itin_topbar{
+	width: 100%;
+	height: 12%;
+}
+#itin_plan{
+	width: 100%;
+	height: 88%;
+}
+#itin_inner{
+	width:93%;
+	float: left;
+	height:100%;
+}
+.mainpage-container{
+	margin-top:0px!important;
+	top:7%!important;
+}

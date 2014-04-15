@@ -1,0 +1,93 @@
+#rest3{
+				min-height: 80%;
+				position: absolute;
+				top:17%;
+				width:100%;
+}
+#itinerary{
+	width:95%;
+	margin: auto;
+	height:20%;
+	min-height:250px;
+	border:2px groove gray;
+	overflow:auto;
+}
+.itin > li{
+	width:100px;
+	/*border:1px dotted black;*/
+	float:left;
+	background: url(../img/road_up.png) no-repeat scroll 0px 60px transparent;
+	position: relative;
+/*	list-style-type: none;
+	background:url(../img/curve1.png) no-repeat left center;
+	background-size:50% 40%;
+	background-position:90px;*/
+	padding-left:70px;
+	/*margin-right:100px;*/
+	height:230px;
+	text-align: center;
+	display: inline-block;
+	position: relative;
+}
+.itin > li > div.itin_contain{
+	border:1px dotted black;
+	height:130px;
+}
+/*
+.itin > li:nth-child(even){}
+.itin > li:nth-child(odd){margin-top:20px;}
+.itin > li:nth-child(even){margin-top:90px;}*/
+.itin > li:nth-child(odd){
+	background: url(../img/road_dwn.png) no-repeat scroll 0px 60px transparent;
+}
+.itin > li:nth-child(odd) > div.itin_contain{margin-top:30%;}
+.itin > li:nth-child(even) > div.itin_contain{margin-top:90%;}
+.itin > li:first-child{	margin-left:10px;background:none; padding-left:0px}
+.item{
+	cursor: pointer;
+}
+.bx-slider,#tabs1-3{
+	max-width: 100%;
+	overflow: none;
+}
+.bx-wrapper{
+	margin: 0 auto auto;
+	max-width: 100%;
+	overflow: none;
+}
+.ui-tabs-panel{
+	min-height: 50px;
+}
+.etabs{
+	background-color: #e6e6e6;
+	margin-left: 0px;
+	width:100%;
+	float: left;
+}
+.tab{
+	float:left;
+	/*background: #e6e6e6;*/
+	/*padding: 8px 26px;*/
+	margin-left: 0.5px;
+	border-right: 1px solid #a9a9a9;
+	transition:1s;
+}
+.tab > a{
+display: block;
+padding: 8px 26px;
+}
+.tab:not(.active):hover{
+	background: #a595a5;
+}
+.tab.active{
+	background: white;
+}
+#citytabs{
+	border: 1px solid #b4b4b4;
+/*	padding:10px 30px;
+	width:90%;
+*/
+	padding: 0px;
+	width: 95%;
+	margin: auto;
+}
