@@ -2,7 +2,7 @@
 require_once 'login/includes/main.php';
 $user = new User();
 if(!$user->loggedIn())
-redirect('login/index.php');
+redirect('/db/login/index.php');
 require_once 'connect.php';
 $query=$_GET['query'];
 $query=explode("/",$query);
@@ -11,6 +11,12 @@ if($query[0]=="departments")
 include "dept.php";
 die();
 }
+else if($query[0]=="terms")
+{
+include "term.php";
+die();
+}
+
 ?>
 <html>
 <head><title>Course Management System</title>

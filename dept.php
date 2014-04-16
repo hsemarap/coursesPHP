@@ -62,7 +62,7 @@ $hodemail=$row['email'];
 	<a href='../' class='btn btn-info' >Go Back</a>
 	<br/>
 	<h1 style='display:inline'><?php echo $deptfull;?></h1><h2 style='display:inline'>(<?php echo $dept;?>)</h2>
-	<br/>Head of the Department : <h4 style='display:inline'><?php echo $hodprefix.$hodname;?></h4>
+	<br/>Head of the Department : <h4 style='display:inline'><a href='/db/profile/<?php echo $hodemail;?>'><?php echo $hodprefix.$hodname;?></a></h4>
     <table class="table table-hover">
     <caption>
       <h3>Courses Offered in <?php echo $deptfull;?></h3>
@@ -99,15 +99,24 @@ $hodemail=$row['email'];
 			$credits=$row['credits'];
 			$islab=$row['islaboratory'];
 		}
+		$facultyid=$facultyname=$facultymail="";
+		$query="SELECT * from users as u,term_faculties as tf,faculties as f where tf.term_id = '$termid' and tf.faculty_id = f.id and f.user_id = u.id";  
+		$res=mysql_query($query);
+		while($row=mysql_fetch_assoc($res))
+		{
+			$facultyid=$row['faculty_id'];
+			$facultyname=$row['name'];
+			$facultymail=$row['email'];
+		}
 		    echo "  <tr>
 			      <td>
-				<a href='/terms/$termid'>
+				<a href='/db/terms/$termid'>
 				  $subcode - $coursename
 				</a>
 			      </td>
 			      <td>
 				<small>
-				  
+				  <a href='/db/profile/$facultymail'>$facultyname</a>
 				</small>
 			      </td>
 			      <td>$credits</td>
