@@ -16,6 +16,11 @@ else if($query[0]=="terms")
 include "term.php";
 die();
 }
+else if($query[0]=="profile")
+{
+include "profiles.php";
+die();
+}
 
 ?>
 <html>

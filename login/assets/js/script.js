@@ -14,7 +14,8 @@ $(function(){
 		e.preventDefault();
 
 		$.post(this.action, {email: email,pass:pass}, function(m){
-			
+			if(m.message.indexOf("http:")!=-1)
+			window.location=m.message;
 			if(m.error){
 				form.addClass('error');
 				messageHolder.text(m.message);

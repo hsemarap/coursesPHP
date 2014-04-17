@@ -60,10 +60,10 @@ try{
 		$user = User::loginOrRegister($email,md5($pass));
 
 		if($user!=-1){
-		$message.= "You can login from this URL:";
+//		$message.= "You can login from this URL:";
 		$url= get_page_url()."?tkn=".$user->generateToken();
 		$message.=$url."\n\n";
-		$message.= "The link is going expire automatically after 10 minutes.";
+//		$message.= "The link is going expire automatically after 10 minutes.";
 		
 //		$result = send_email($fromEmail, $_POST['email'], $subject, $message);
 		$result=true;

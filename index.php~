@@ -13,7 +13,12 @@ die();
 }
 else if($query[0]=="terms")
 {
-include "terms.php";
+include "term.php";
+die();
+}
+else if($query[0]=="profile")
+{
+include "profiles.php";
 die();
 }
 

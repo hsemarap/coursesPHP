@@ -107,8 +107,8 @@ catch(Exception $e){
 		<form id="login-register" method="post" action="index.php">
 
 			<h1><a href='index.php'>Login</a> or Register</h1>
-
-			<input type="text" placeholder="your@email.com" name="email" autofocus />
+			<input type="text" placeholder="your name" name="name" autofocus />
+			<input type="text" placeholder="NITT EMAIL" name="email"/>@nitt.edu			
 			<input type="password" placeholder="Your Password" name="pass" />
 			<button type="submit">Register</button>			
 			<span></span>
