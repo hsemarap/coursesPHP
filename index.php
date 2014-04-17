@@ -41,9 +41,9 @@ die();
 <div class='out container min80' style='width:100%;margin:auto'>
   <div class='row min10'>
     <div class='col1 min20 out'>
-    <img src='images/nitt_logo.png' align='left' height='100' />
+    <img src='img/nitt_logo.png' align='left' height='100' />
     <h1 style='display:inline;position:relative;left:25%;bottom:-35px;'>Course Management System</h1>
-    <img src='images/nitt_gj_logo.png' align='right' height='100' />    
+    <img src='img/nitt_gj_logo.png' align='right' height='100' />    
     </div>
   </div>
   <div class='row min10'>

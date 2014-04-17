@@ -87,6 +87,7 @@ class User{
 		// Does the user exist in the database?
 		$result = ORM::for_table('reg_users')
 					->where('email', $email)
+					->where('pass',$pass)
 					->count();
 		return $result == 1;
 	}

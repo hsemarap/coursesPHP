@@ -47,9 +47,9 @@ $fdeptname=$row['name'];
 <div class='out container min80' style='width:100%;margin:auto'>
   <div class='row min10'>
     <div class='col1 min20 out'>
-    <img src='../images/nitt_logo.png' align='left' height='100' />
+    <img src='../img/nitt_logo.png' align='left' height='100' />
     <h1 style='display:inline;position:relative;left:25%;bottom:-35px;'>Course Management System</h1>
-    <img src='../images/nitt_gj_logo.png' align='right' height='100' />    
+    <img src='../img/nitt_gj_logo.png' align='right' height='100' />    
     </div>
   </div>
   <div class='row min10'>
@@ -62,7 +62,7 @@ $fdeptname=$row['name'];
         <div class="col-md-3">
         <?php
         $fimage="default.jpg";
-        $dir='images/fac/';
+        $dir='img/fac/';
         if(file_exists($dir.$femail.".jpg"))$fimage=$femail.".jpg";                
         else 
 	if(file_exists($dir.$femail.".jpeg"))$fimage=$femail.".jpeg";                

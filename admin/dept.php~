@@ -1,0 +1,250 @@
+<?php
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
+require_once "../connect.php";
+require_once "../login/includes/main.php";
+$user= new User();
+if(!$user->loggedIn()){
+redirect("../login/index.php");
+}
+if($user->rank()!="administrator"){
+echo "You do not have Admin privileges to access this page";
+echo "<script>setTimeout(function(){window.location='../';},2000);</script>";
+die();
+}
+?>
+<html>
+<head><title>Course Management System</title>
+<link rel='stylesheet' href='../css/bootstrap.min.css' />
+<link rel='stylesheet' href='../css/application_custom.css' />
+<script src='../js/jquery.min.js' ></script>
+<script src='../js/bootstrap.min.js' ></script>
+</head>
+<body >
+<style>
+.row{margin-right:0px!important;}
+.out{border:1px solid black;}
+.min100{min-height:100%;}
+.min90{min-height:90%;}.min80{min-height:80%;}.min70{min-height:70%;}
+.min60{min-height:60%;}.min50{min-height:50%;}.min40{min-height:40%;}
+.min30{min-height:30%;}.min20{min-height:20%;}.min10{min-height:10%;}
+</style>
+<div class='out container min80' style='width:100%;margin:auto'>
+  <div class='row min10'>
+    <div class='col1 min20 out'>
+    <img src='../img/nitt_logo.png' align='left' height='100' />
+    <h1 style='display:inline;position:relative;left:25%;bottom:-35px;'>Course Management System</h1>
+    <img src='../img/nitt_gj_logo.png' align='right' height='100' />    
+    </div>
+  </div>
+  <div class='row min10'>
+    <div class='col1 min80 out'>
+    <span style='position:relative;float:right' ><?php echo $user->email." ( ".$user->rank()." )";?></span>        
+	<div class="panel panel-default">
+	<a href='../' class='btn btn-info' >Go Back</a>
+	<br/>
+<?php
+if(isset($_GET['delete'])){
+$deptid=$_GET['delete'];
+$query="SELECT * FROM departments where id = '$deptid'";
+$res=mysql_query($query);
+while($row=mysql_fetch_assoc($res))
+$deptname=$row['name'];
+$html="<form action='dept.php?delete=$deptid' method='POST'>
+Do You Really want to delete the $deptname Department ? This is a Irreversible action<br/><br/>
+<input type='radio' value='yes' name='confirm' />Yes<br/><br/>
+<input type='radio' value='no'  name='confirm' />No<br/><br/>
+<input type='submit' value='Delete' />
+</form>
+";
+if(sizeof($_POST)==0)echo $html;
+else {
+	$query="DELETE FROM departments where id = '$deptid'";
+	if(isset($_POST['confirm']) && $_POST['confirm'] == 'yes'){
+	mysql_query($query);
+	echo $deptname." is deleted Successfully";
+	}
+	else
+	{
+	echo "Phew, $deptname is not deleted";
+	}
+}
+}
+else if(isset($_GET['edit'])){
+$dept=$_GET['edit'];
+$query="SELECT * FROM departments where id = '$dept'";
+$res=mysql_query($query);
+while($row=mysql_fetch_assoc($res))
+{
+$short=$row['short'];
+$dname=$row['name'];
+$hodid=$row['hod_id'];
+$rollpre=$row['rollno_prefix'];
+}
+$query="SELECT name FROM faculties as f,users as u where f.id = '$hodid' and f.user_id = u.id";
+$res=mysql_query($query);
+while($row=mysql_fetch_assoc($res))
+{
+$hodname=$row['name'];
+}
+$html=<<<DOC
+<div class="container">
+      <div class="s-push"></div>
+      <form action="/db/admin/dept.php?edit=$dept" class="new_department" id="new_department" method="post"><div style="margin:0;padding:0;display:inline">
+  <fieldset>
+    <legend>Edit Department</legend>
+    <div class="field">
+      <input class="form-control" id="department_short" name="department[short]" placeholder="Short Form. eg: CSE" type="text" value='$short'>
+    </div>
+    <div class="field">
+      <input class="form-control" id="department_name" name="department[name]" placeholder="Department Name" type="text" value='$dname'>
+    </div>
+    <div class="field">
+      <select class="selectpicker show-tick show-menu-arrow" data-header="Select a HOD" data-live-search="true" id="department_hod_id" name="department[hod_id]" title="Select HOD" style="">
+DOC;
+$query="SELECT f.id,u.name FROM faculties as f,users as u where f.user_id=u.id and department_id=".$_GET['edit'];
+$res=mysql_query($query);
+while($row=mysql_fetch_assoc($res))
+$html.="<option value='".$row['id']."' ".($row['name']==$hodname?'selected':'').">".$row['name']."</option>";
+$html.=<<<ABC
+      </select>
+    </div>
+    <div class="field">
+      <input class="form-control" id="department_rollno_prefix" name="department[rollno_prefix]" placeholder="Roll Number Prefix" type="text" value='$rollpre' >
+    </div>
+    <div class="actions">
+      <input class="btn btn-primary btn-large" name="commit" type="submit" value="Update Department">
+      <a class="btn btn-default btn-small" href="/db/admin/dept.php">Back</a>
+    </div>
+  </fieldset>
+</form>
+    </div>
+ABC;
+
+if(sizeof($_POST)==0)
+echo $html;
+else {
+	$dept=$_POST['department'];
+	$query="UPDATE departments SET ";
+	$q1="";$i=0;
+	foreach($dept as $entry=>$val){
+	$entry=mysql_real_escape_string($entry);
+	$val=mysql_real_escape_string($val);	
+		if($i>0)$q1.=",";
+		$i++;
+		$q1.=$entry." = '$val'";
+	}
+	$query=$query.$q1." WHERE id = ".$_GET['edit'];
+	echo $query;
+	mysql_query($query);
+}
+}
+else 
+if(isset($_GET['new'])){
+$html=<<<DOC
+<div class="container">
+      <div class="s-push"></div>
+      <form action="/db/admin/dept.php?new=1" class="new_department" id="new_department" method="post"><div style="margin:0;padding:0;display:inline">
+  <fieldset>
+    <legend>New Department</legend>
+    <div class="field">
+      <input class="form-control" id="department_short" name="department[short]" placeholder="Short Form. eg: CSE" type="text">
+    </div>
+    <div class="field">
+      <input class="form-control" id="department_name" name="department[name]" placeholder="Department Name" type="text">
+    </div>
+    <div class="field">
+      <select class="selectpicker show-tick show-menu-arrow" data-header="Select a HOD" data-live-search="true" id="department_hod_id" name="department[hod_id]" title="Select HOD" style="">
+DOC;
+$query="SELECT f.id,u.name FROM faculties as f,users as u where f.user_id=u.id";
+$res=mysql_query($query);
+while($row=mysql_fetch_assoc($res))
+$html.="<option value='".$row['id']."'>".$row['name']."</option>";
+$html.=<<<ABC
+      </select>
+    </div>
+    <div class="field">
+      <input class="form-control" id="department_rollno_prefix" name="department[rollno_prefix]" placeholder="Roll Number Prefix" type="text">
+    </div>
+    <div class="actions">
+      <input class="btn btn-primary btn-large" name="commit" type="submit" value="Create Department">
+      <a class="btn btn-default btn-small" href="/db/admin/dept.php">Back</a>
+    </div>
+  </fieldset>
+</form>
+    </div>
+ABC;
+
+if(sizeof($_POST)==0)
+echo $html;
+else {
+	$dept=$_POST['department'];
+	$query="INSERT INTO departments(";
+	$q1=$q2="";$i=0;
+	foreach($dept as $entry=>$val){
+	$entry=mysql_real_escape_string($entry);
+	$val=mysql_real_escape_string($val);	
+		if($i>0){$q1.=",";$q2.=",";}
+		$i++;
+		$q1.=$entry;
+		$q2.="'$val'";
+	}
+	$query=$query.$q1.") VALUES(".$q2.")";
+	echo $query;
+	mysql_query($query);
+}
+}
+if(!isset($_GET['new']) && !isset($_GET['delete']) && !isset($_GET['edit'])){
+$html=<<<DOC
+	<div class="container">
+      <div class="s-push"></div>
+      <div class="span12" style="text-align:center">
+  <h3>Departments</h3>
+      </div>
+<a href="/db/admin/dept.php?new=1" class="btn btn-default btn-small">
+  <span class="glyphicon glyphicon-plus" style="color: green; "></span> 
+  Add Department
+</a>
+<br>
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Department Name</th>
+      <th colspan="2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+DOC;
+	$query="SELECT * FROM departments";
+	$res=mysql_query($query);
+	while($row=mysql_fetch_assoc($res))
+	$html.='  
+    <tr>
+      <td><a class="btn btn-small btn-link" href="/db/admin/department.php?dept='.$row["id"].'">'.$row["name"].'</a></td>
+      <td><a class="btn btn-default btn-small" href="/db/admin/dept.php?edit='.$row["id"].'">Edit</a></td>
+      <td><a class="btn btn-mini btn-danger" data-confirm="Are you sure?" data-method="delete" href="/db/admin/dept.php?delete='.$row["id"].'" rel="nofollow">Remove</a></td>
+    </tr>';
+$html.=<<<DOC
+  </tbody>
+</table>
+
+<br>
+
+<a href="/db/admin/dept.php?new=1" class="btn btn-default btn-small">
+  <span class="glyphicon glyphicon-plus" style="color: green; "></span> 
+  Add Department
+</a>
+    </div>
+DOC;
+echo $html;
+}
+?>
+  </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

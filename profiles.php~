@@ -3,7 +3,6 @@ $pro=$_GET['query'];
 $pro=explode("/",$pro);
 $pro=$pro[1];
 if($pro=="me");// do some stuff 
-
 $femail=$pro;
 require_once "connect.php";
 $query="SELECT * from users where email = '$pro'";

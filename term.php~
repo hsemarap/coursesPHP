@@ -47,9 +47,9 @@ $courseoutcomes=$coursedetails[2];
 <div class='out container min80' style='width:100%;margin:auto'>
   <div class='row min10'>
     <div class='col1 min20 out'>
-    <img src='/db/images/nitt_logo.png' align='left' height='100' />
+    <img src='/db/img/nitt_logo.png' align='left' height='100' />
     <h1 style='display:inline;position:relative;left:25%;bottom:-35px;'>Course Management System</h1>
-    <img src='/db/images/nitt_gj_logo.png' align='right' height='100' />    
+    <img src='/db/img/nitt_gj_logo.png' align='right' height='100' />    
     </div>
   </div>
   <div class='row min10'>
@@ -66,6 +66,14 @@ $courseoutcomes=$coursedetails[2];
     </h3>
     <div id="specialized_view">
     <div class="row" id="term-info-page">
+    <script>
+    $(function(){
+    	$(".list-group-item").click(function(){
+    		$(this).parent().find(".list-group-item.active").removeClass("active");
+    		$(this).addClass(".active");
+    	});
+    });
+    </script>
     <div class="list-group local-nav col-md-3">
       <a class="list-group-item active" href="#overview" data-toggle="tab">Overview</a>
       <a class="list-group-item " href="#instructor" data-toggle="tab">Instructor</a>
@@ -143,7 +151,7 @@ $courseoutcomes=$coursedetails[2];
       </div>
       <div class="tab-pane " id="instructor">
 	<?php echo "
-	$facultyname<br/>
+	<a href='/db/profile/$facultymail' >$facultyname</a><br/>
 	Email:{$facultymail}@nitt.edu
 	";   
      ?>
