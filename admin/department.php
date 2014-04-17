@@ -1,35 +1,19 @@
 <?php
-$dept=$_GET['query'];
-$dept=explode("/",$dept);
-$dept=$dept[1];
-require_once "connect.php";
-$query="SELECT * from departments where short = '$dept'";
-$res=mysql_query($query);
-if(mysql_num_rows($res)==0)$deptfound=false;
-else 
-while($row=mysql_fetch_assoc($res))
-{
-$deptfound=true;
-$deptid=$row['id'];
-$deptfull=$row['name'];
-$deptrollprefix=$row['rollno_prefix'];
-$depthodid=$row['hod_id'];
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
+require_once "../connect.php";
+require_once "../login/includes/main.php";
+$user= new User();
+if(!$user->loggedIn()){
+redirect("../login/index.php");
 }
-$query="SELECT * from faculties where id = '$depthodid'";
-$res=mysql_query($query);
-while($row=mysql_fetch_assoc($res))
-{
-$hodprefix=$row['prefix'];
-$hoduid=$row['user_id'];
-$hodabout=$row['about'];
+if($user->rank()!="administrator"){
+echo "You do not have Admin privileges to access this page";
+echo "<script>setTimeout(function(){window.location='../';},2000);</script>";
+die();
 }
-$query="SELECT * from users where id = '$hoduid'";
-$res=mysql_query($query);
-while($row=mysql_fetch_assoc($res))
-{
-$hodname=$row['name'];
-$hodemail=$row['email'];
-}
+
 ?>
 <html>
 <head><title>Course Management System</title>
@@ -61,11 +45,42 @@ $hodemail=$row['email'];
 	<div class="panel panel-default">
 	<a href='../' class='btn btn-info' >Go Back</a>
 	<br/>
-	<h1 style='display:inline'><?php echo $deptfull;?></h1><h2 style='display:inline'>(<?php echo $dept;?>)</h2>
-	<br/>Head of the Department : <h4 style='display:inline'><a href='/db/profile/<?php echo $hodemail;?>'><?php echo $hodprefix.$hodname;?></a></h4>
+<?php
+$dept=$_GET['dept'];
+$query="SELECT * from departments where id = '$dept'";
+$res=mysql_query($query);
+if(mysql_num_rows($res)==0)$deptfound=false;
+else 
+while($row=mysql_fetch_assoc($res))
+{
+$deptfound=true;
+$deptid=$row['id'];
+$deptfull=$row['name'];
+$deptrollprefix=$row['rollno_prefix'];
+$depthodid=$row['hod_id'];
+}
+$query="SELECT * from faculties where id = '$depthodid'";
+$res=mysql_query($query);
+while($row=mysql_fetch_assoc($res))
+{
+$hodprefix=$row['prefix'];
+$hoduid=$row['user_id'];
+$hodabout=$row['about'];
+}
+$query="SELECT * from users where id = '$hoduid'";
+$res=mysql_query($query);
+while($row=mysql_fetch_assoc($res))
+{
+$hodname=$row['name'];
+$hodemail=$row['email'];
+}
+$html="";
+$html.=<<<DOC
+	<h1 style='display:inline'>$deptfull</h1><h2 style='display:inline'>($dept)</h2>
+	<br/>Head of the Department : <h4 style='display:inline'><a href='/db/profile/$hodemail'>$hodprefix $hodname</a></h4>
     <table class="table table-hover">
     <caption>
-      <h3>Courses Offered in <?php echo $deptfull;?></h3>
+      <h3>Courses Offered in $deptfull</h3>
     </caption>
     <thead>
       <tr>
@@ -74,24 +89,22 @@ $hodemail=$row['email'];
         <th>No. of credits</th>
       </tr>
     </thead>
-    <?php
+DOC;
     	$query="SELECT * from terms where id in (SELECT term_id FROM term_departments WHERE department_id = '$deptid') order by semester";    	
 	$res=mysql_query($query);
 	while($row=mysql_fetch_assoc($res))
 	{
 		$ans[$row['semester']][]=$row;
 	}
-    ?>
-    <tbody>            
-    <?php
+$html.="
+    <tbody>";            
     foreach($ans as $sem=>$semdetails){
-    echo "<tr><th colspan='3'>Sem #$sem</th></tr>";
+    $html.="<tr><th colspan='3'>Sem #$sem</th></tr>";
 	    foreach($semdetails as $semester){
 	    	$courseid=$semester['course_id'];
 	        $termid=$semester['id'];
                 $query="SELECT * from courses where id = '$courseid'";    	
 		$res=mysql_query($query);
-//		echo $query;
 		while($row=mysql_fetch_assoc($res))
 		{
 			$subcode=$row['subject_code'];
@@ -108,7 +121,7 @@ $hodemail=$row['email'];
 			$facultyname=$row['name'];
 			$facultymail=$row['email'];
 		}
-		    echo "  <tr>
+		    $html.="  <tr>
 			      <td>
 				<a href='/db/terms/$termid'>
 				  $subcode - $coursename
@@ -123,12 +136,15 @@ $hodemail=$row['email'];
 			    </tr>";
             }
     }
-    ?>
+$html.=<<<HTML
     </tbody>
   </table>
   </div>
     </div>
   </div>
+HTML;
+echo $html;
+?>
 </div>
 </body>
 </html>

@@ -19,7 +19,7 @@ $query="SELECT * from faculties where id = '$depthodid'";
 $res=mysql_query($query);
 while($row=mysql_fetch_assoc($res))
 {
-$hodprefix=$row['prefix'].'a';
+$hodprefix=$row['prefix'];
 $hoduid=$row['user_id'];
 $hodabout=$row['about'];
 }
@@ -97,7 +97,7 @@ $hodemail=$row['email'];
 			$subcode=$row['subject_code'];
 			$coursename=$row['name'];
 			$credits=$row['credits'];
-			$islab=$row['islaboratory'];
+			$islab=$row['is_laboratory'];
 		}
 		$facultyid=$facultyname=$facultymail="";
 		$query="SELECT * from users as u,term_faculties as tf,faculties as f where tf.term_id = '$termid' and tf.faculty_id = f.id and f.user_id = u.id";  
