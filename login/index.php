@@ -59,7 +59,7 @@ try{
 		// Attempt to login or register the person
 		$user = User::loginOrRegister($email,md5($pass));
 
-		if($user!=-1){
+		if($user){
 //		$message.= "You can login from this URL:";
 		$url= get_page_url()."?tkn=".$user->generateToken();
 		$message.=$url."\n\n";
