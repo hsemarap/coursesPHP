@@ -59,7 +59,7 @@ $courseoutcomes=$coursedetails[2];
 	<a href='/db/' class='btn btn-info' >Go Back</a>
 	<br/>
 	<div class="container" id="content" style="opacity: 1;">
-  <div id="term_39">
+  <div id="term_">
     <h3>     
       <small><?php echo $subcode?></small>
 	<?php echo $coursename?>
@@ -70,7 +70,7 @@ $courseoutcomes=$coursedetails[2];
     $(function(){
     	$(".list-group-item").click(function(){
     		$(this).parent().find(".list-group-item.active").removeClass("active");
-    		$(this).addClass(".active");
+    		$(this).addClass("active");
     	});
     });
     </script>

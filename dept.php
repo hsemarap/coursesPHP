@@ -57,6 +57,10 @@ $hodemail=$row['email'];
   </div>
   <div class='row min10'>
     <div class='col1 min80 out'>
+<?php
+if($user->rank()=='administrator')
+echo "<span style='position:relative;float:left' ><a class='btn btn-large btn-warning' href='/db/admin/dept.php'>Admin Page</a></span>";
+?>
     <span style='position:relative;float:right' ><?php echo "$user->email ( ".$user->rank()." )";?></span>        
 	<div class="panel panel-default">
 	<a href='../' class='btn btn-info' >Go Back</a>
