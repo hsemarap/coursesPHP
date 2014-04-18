@@ -78,7 +78,7 @@ $html="";
 $html.=<<<DOC
 	<h1 style='display:inline'>$deptfull</h1><h2 style='display:inline'>($dept)</h2>
 	<br/>Head of the Department : <h4 style='display:inline'><a href='/db/profile/$hodemail'>$hodprefix $hodname</a></h4>
-	<a href="/db/admin/term.php?newcourse" class="btn btn-default btn-small" style='left:50%;position:relative'>
+	<a href="/db/admin/term.php?newcourse=1" class="btn btn-default btn-small" style='left:50%;position:relative'>
   <span class="glyphicon glyphicon-plus" style="color: green; "></span> 
   Add Course
 </a>

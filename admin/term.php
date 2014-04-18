@@ -45,8 +45,68 @@ die();
 	<a href='../' class='btn btn-info' >Go Back</a>
 	<br/>
 <?php
-
-if(isset($_GET['term'])){
+if(isset($_GET['newcourse'])){
+	echo "
+	<form action='./term.php?newcourse=1' method='POST'>
+	<table class='table table-striped table-hover'>
+		<tr><td>Subject Code</td><td><input type='text' name='code' /></td></tr>
+		<tr><td>Name</td><td><input type='text' name='coursename' /></td></tr>
+		<tr><td>Semester</td><td><input type='number' min='1' max='8' name='semester' /></td></tr>		
+		<tr><td>Credits</td><td><input type='text' min='1' max='4' name='credits' /></td></tr>				
+		<tr><td>About</td><td><textarea style='width:60%;min-height:50px' name='about'></textarea></td></tr>
+		<tr><td>Objectives</td><td><textarea style='width:60%;min-height:50px' name='objectives'></textarea></td></tr>
+		<tr><td>Outcomes</td><td><textarea style='width:60%;min-height:50px' name='outcomes'></textarea></td></tr>						
+		<tr><td>is this Lab Course?</td><td>
+		<label><input type='radio' value='1' name='islab' />Yes</label>
+		<label><input type='radio' value='0' name='islab' />No</label></td></tr>		
+		<tr><td>Faculty</td><td><select name='instructor'>";
+		$query="SELECT f.id,name,email from faculties as f,users as u where u.id = f.user_id";
+		$res=mysql_query($query);
+		while($row=mysql_fetch_assoc($res))
+		echo "<option value='".$row['id']."'>".$row['name']."</option>";
+echo "	</select></td></tr>		
+		<tr><td>Department</td><td><select name='department'>";
+		$query="SELECT * from departments";
+		$res=mysql_query($query);
+		while($row=mysql_fetch_assoc($res))
+		echo "<option value='".$row['id']."'>".$row['name']."</option>";
+echo "	</select></td></tr>
+		<tr><td></td><td><input type='submit' class='btn btn-info' value='Add this course'/></td></tr>
+	</table>
+	</form>
+	";
+	if(sizeof($_POST)>0){
+		$code=$_POST['code'];
+		$coursename=$_POST['coursename'];
+		$semester=$_POST['semester'];
+		$credits=$_POST['credits'];
+		$about=$_POST['about'];
+		$objectives=$_POST['objectives'];
+		$outcomes=$_POST['outcomes'];
+		$islab=$_POST['islab'];
+		$instructor=$_POST['instructor'];
+		$department=$_POST['department'];
+		$aboutentry=$about."####".$objectives."####".$outcomes;
+		$query="INSERT INTO courses VALUES('','$code','$coursename','$credits',NOW(),NOW(),'$aboutentry','$islab')";		
+		mysql_query($query);
+		echo $query;
+		$courseid=mysql_insert_id();
+		$query="INSERT INTO terms VALUES('','$courseid',YEAR(CURDATE()),'$semester',NOW(),NOW(),'','')";
+		mysql_query($query);
+		echo "<br/>$query";	
+		$newtermid=mysql_insert_id();
+		$query="INSERT INTO term_departments VALUES('',$newtermid,'$department',NOW(),NOW())";
+		mysql_query($query);
+		echo "<br/>$query";
+		$query="INSERT INTO term_faculties VALUES('',$newtermid,'$instructor',NOW(),NOW())";
+		mysql_query($query);
+		echo "<br/>$query";				
+		if(mysql_error()=="")
+		echo "Details inserted Successfully";
+		else echo "Error: ".mysql_error();		
+	}	
+}
+else if(isset($_GET['term'])){
 	$term=$_GET['term'];
 $query="SELECT * from terms where id = '$term'";
 $res=mysql_query($query);
@@ -78,6 +138,7 @@ if(sizeof($_POST)>0)
  {
 	if(isset($_POST['objectives'])&&isset($_POST['outcomes'])&&isset($_POST['instructor']))
 	{
+		$about=$_POST['about'];
 		$courseobj=$obj=$_POST['objectives'];
 		$courseoutcomes=$out=$_POST['outcomes'];
 		$inst=$_POST['instructor'];
@@ -86,7 +147,7 @@ if(sizeof($_POST)>0)
 		$islab=$isLab=$_POST['islab'];
 		$credits=$_POST['credits'];		
 		$coursename=$_POST['coursename'];						
-		$about = "####".$obj."####".$out;
+		$about = $about."####".$obj."####".$out;
 		$query="UPDATE courses SET is_laboratory='$isLab', credits='$credits', subject_code = '$code',name = '$coursename' ,about='$about' WHERE id = '$courseid'";
 		mysql_query($query);
 		$query="UPDATE terms SET semester = '$semester' WHERE id = '$term'";
@@ -134,11 +195,12 @@ $html='	<div class="container" id="content" style="opacity: 1;">
       <div class="tab-pane active" id="overview">
         <table class="table bottom_line">
           <tbody>';
-          if($courseabout!=""){
+          //if($courseabout!="")
+          {
           	$html.= "
           	<tr><td colspan='2'>
           		<h4>About</h4>
-          		 $courseabout
+          		 <textarea name='about' style='width:60%;min-height:150px'>$courseabout</textarea>
           	</td></tr>
           	";
           }

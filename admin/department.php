@@ -96,6 +96,7 @@ $html.=<<<DOC
     </thead>
 DOC;
     	$query="SELECT * from terms where id in (SELECT term_id FROM term_departments WHERE department_id = '$deptid') order by semester";    	
+    	echo $query;
 	$res=mysql_query($query);
 	while($row=mysql_fetch_assoc($res))
 	{
