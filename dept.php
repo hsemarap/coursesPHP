@@ -104,7 +104,8 @@ echo "<span style='position:relative;float:left' ><a class='btn btn-large btn-wa
 			$islab=$row['is_laboratory'];
 		}
 		$facultyid=$facultyname=$facultymail="";
-		$query="SELECT * from users as u,term_faculties as tf,faculties as f where tf.term_id = '$termid' and tf.faculty_id = f.id and f.user_id = u.id";  
+		$query="SELECT * from users as u,term_faculties as tf,faculties as f where tf.term_id = '$termid' and tf.faculty_id = f.id and f.user_id = u.id";
+//		$query="CALL facultyTermid($termid)";  		  
 		$res=mysql_query($query);
 		while($row=mysql_fetch_assoc($res))
 		{

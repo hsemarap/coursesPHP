@@ -1,9 +1,3 @@
-DELIMITER $
-CREATE PROCEDURE facultyTermid(IN termid INT(11))
-BEGIN
-SELECT * from users as u,term_faculties as tf,faculties as f where tf.term_id = termid and tf.faculty_id = f.id and f.user_id = u.id;
-END $
-DELIMITER ;
 -- phpMyAdmin SQL Dump
 -- version 4.0.6deb1
 -- http://www.phpmyadmin.net
