@@ -57,6 +57,8 @@ $fdeptname=$row['name'];
     <span style='position:relative;float:right' ><?php echo "$user->email ( ".$user->rank()." )";?></span>        
 	<div class="panel panel-default">
 	<a href='../' class='btn btn-info' >Go Back</a>
+	<a href='/db/books.php' class='btn btn-info' >Books</a>	
+	<a href='/db/' class='btn btn-info' >Departments</a>			
 	<br/>
 	<div class="row">
         <div class="col-md-3">

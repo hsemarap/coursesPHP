@@ -57,9 +57,11 @@ $courseoutcomes=$coursedetails[2];
     <span style='position:relative;float:right' ><?php echo "$user->email ( ".$user->rank()." )";?></span>        
 	<div class="panel panel-default">
 	<a href='/db/' class='btn btn-info' >Go Back</a>
+	<a href='/db/books.php' class='btn btn-info' >Books</a>	
+	<a href='/db/' class='btn btn-info' >Departments</a>		
 	<br/>
 	<div class="container" id="content" style="opacity: 1;">
-  <div id="term_">
+  <div id="term">
     <h3>     
       <small><?php echo $subcode?></small>
 	<?php echo $coursename?>
@@ -77,6 +79,7 @@ $courseoutcomes=$coursedetails[2];
     <div class="list-group local-nav col-md-3">
       <a class="list-group-item active" href="#overview" data-toggle="tab">Overview</a>
       <a class="list-group-item " href="#instructor" data-toggle="tab">Instructor</a>
+      <a class="list-group-item " href="#reference" data-toggle="tab">Reference Books</a>      
     </div>
     <div class="tab-content col-md-9">
       <div class="tab-pane active" id="overview">
@@ -156,6 +159,60 @@ $courseoutcomes=$coursedetails[2];
 	";   
      ?>
 	
+      </div>
+      <div class="tab-pane " id="reference">
+<table class="table">
+  <thead>
+    <tr><th>Title</th>  <th>Author</th>      <th>Publisher</th>      <th>Edition</th>      <th ></th>    </tr>
+  </thead>
+  <tbody>
+	<?php 
+	$i=1;
+	$q="SELECT * FROM term_references WHERE term_id='$term'";	
+	$res1=mysql_query($q);
+	while($row1=mysql_fetch_assoc($res1)){
+		$bookid=$row1['book_id'];
+$query="select * from books where id = '$bookid'";
+$res=mysql_query($query);
+$html="";
+while($row=mysql_fetch_assoc($res))
+{
+$html.=<<<DOC0
+  <tr>
+    <td>
+      <a href="books.php?book={$row['id']}">{$row['title']}</a>
+      ({$row['year']})<br>
+      <strong>ISBN:</strong>
+      {$row['isbn']}
+    </td>  
+    <td>
+      <div>
+DOC0;
+$q1="select authors.id,authors.name from book_authors,authors where book_authors.book_id = '".$row['id']."' and book_authors.author_id = authors.id";
+$r1=mysql_query($q1);
+while($rr1=mysql_fetch_assoc($r1))
+$html.='<div>'.$rr1['name'].'</div>';
+$html.=<<<DOC2
+      </div>
+    </td>
+    <td>{$row['publisher']}</td>
+    <td>{$row['edition']}</td>
+    <td>
+      <a href="books.php?edit={$row['id']}" class="btn btn-default hidden">
+	<span class="glyphicon glyphicon-pencil" style="color: #322dd2;">Edit</span>
+      </a>
+      <a href="books.php?delete={$row['id']}" class="btn btn-default hidden" data-method="delete" data-confirm="Are you sure?" rel="nofollow">
+        <span class="glyphicon glyphicon-trash" style="color: #d2322d;">Remove</span>
+      </a>
+    </td>
+  </tr>
+DOC2;
+}
+echo $html;
+$i++;		
+	}
+        ?>
+</tbody></table>
       </div>
     </div>
   </div>

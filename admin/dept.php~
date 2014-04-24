@@ -43,6 +43,7 @@ die();
     <span style='position:relative;float:right' ><?php echo $user->email." ( ".$user->rank()." )";?></span>        
 	<div class="panel panel-default">
 	<a href='../' class='btn btn-info' >Go Back</a>
+	<a href='./profiles.php' class='btn btn-info' >Edit Profiles</a>
 	<br/>
 <?php
 if(isset($_GET['delete'])){

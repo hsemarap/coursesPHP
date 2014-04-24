@@ -64,6 +64,8 @@ echo "<span style='position:relative;float:left' ><a class='btn btn-large btn-wa
     <span style='position:relative;float:right' ><?php echo "$user->email ( ".$user->rank()." )";?></span>        
 	<div class="panel panel-default">
 	<a href='../' class='btn btn-info' >Go Back</a>
+	<a href='/db/books.php' class='btn btn-info' >Books</a>	
+	<a href='/db/' class='btn btn-info' >Departments</a>			
 	<br/>
 	<h1 style='display:inline'><?php echo $deptfull;?></h1><h2 style='display:inline'>(<?php echo $dept;?>)</h2>
 	<br/>Head of the Department : <h4 style='display:inline'><a href='/db/profile/<?php echo $hodemail;?>'><?php echo $hodprefix.$hodname;?></a></h4>
